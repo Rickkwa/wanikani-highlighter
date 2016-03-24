@@ -1,0 +1,14 @@
+﻿{
+	"manifest_version": 2,
+	"name": "WaniKani Highlighter",
+	"version": "0.1",
+	"description": "Highlights user's vocab/kanji on webpages",
+	"browser_action": {
+		"default_title": "WaniKani Highlighter",
+		"default_popup": "html/popup.html"
+	},
+	"permissions": [
+		"storage",
+		"*://*/*"
+	]
+}

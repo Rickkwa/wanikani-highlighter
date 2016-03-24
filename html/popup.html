@@ -1,0 +1,45 @@
+<html>
+<head>
+<style>
+body {
+	width: 400px;
+	margin: 0;
+	padding: 0;
+}
+
+.top {
+	margin: 0 10px 15px 10px;
+}
+
+.bottom {
+}
+
+.big-btn {
+	background-color: gray;
+	width: 100%;
+	text-align: center;
+	line-height: 32px;
+	font-size: 16px;
+	cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="top">
+	<h1>WaniKani Highlighter Options</h1>
+
+	<div>
+		<label for="apikey">API Key: </label><input id="apikey" type="text" maxlength="32"/>
+	</div>
+</div>
+
+<div class="bottom">
+	<div class="big-btn" id="save-btn">Save</div>
+	<div id="status"></div>
+</div>
+
+<script src="../js/helper.js"></script>
+<script src="../js/options.js"></script>
+</body>
+</html>
