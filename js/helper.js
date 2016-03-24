@@ -1,7 +1,23 @@
-
 /*******************
 WaniKani API Handling
 */
+
+// Test API is online and that the API key is correct
+function testApi(apikey, callback) {
+	if (apikey.length != 32 || !/^[a-z0-9]+$/i.test(apikey)) {
+		callback(false, "Invalid API key.");
+		return;
+	}
+
+	callApi(apikey, "", function(res) {
+		if (!res.hasOwnProperty("error"))
+			callback(true, null);
+		else
+			callback(false, res["error"]["message"]);
+	}, function(status) {
+		callback(false, "Could not establish a connection to WaniKani.");
+	});
+}
 
 // Standard async api call
 function callApi(apikey, request, s_cb, e_cb) {
@@ -11,9 +27,11 @@ function callApi(apikey, request, s_cb, e_cb) {
 // Synchronous api call just in case
 function callApiSync(apikey, request) {
 	var result;
-	wkApiCall(apikey, request, function(r) {
+	var cb = function(r) {
 		result = r;
-	}, {}, false);
+	};
+
+	wkApiCall(apikey, request, cb, cb, false);
 	return result;
 }
 
@@ -37,7 +55,9 @@ function wkApiCall(apikey, request, s_cb, e_cb, async) {
 	xhr.send();
 }
 
-
+/*******************
+Backend storage of the words
+*/
 function updateWordList(apikey) {
 	// word is key, 
 	// and value is obj of proficiency (if its a word), endWord, and children

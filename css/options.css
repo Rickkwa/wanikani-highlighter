@@ -1,0 +1,40 @@
+body {
+	width: 450px;
+	margin: 0;
+	padding: 0;
+}
+
+.top {
+	margin: 0 10px 15px 10px;
+}
+
+.bottom {
+}
+
+#status {
+	min-height: 24px;
+	line-height: 24px;
+	font-size: 14px;
+	padding: 0 10px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+#status.error {
+	background-color: #f2dede;
+}
+
+#status.success {
+	background-color: #dff0d8;
+}
+
+.big-btn {
+	/*background-color: gray;*/
+	background-color: #E8009B;
+	color: white;
+	width: 100%;
+	text-align: center;
+	line-height: 32px;
+	font-size: 16px;
+	cursor: pointer;
+}
