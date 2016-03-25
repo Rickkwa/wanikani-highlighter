@@ -44,10 +44,8 @@ function wkApiCall(apikey, request, s_cb, e_cb, async) {
 			if (xhr.status == 200) {
 				if (typeof s_cb == "function")
 					s_cb(JSON.parse(xhr.responseText));
-					// s_cb(xhr.responseText);
 			}
 			else if (typeof e_cb == "function") {
-				// TODO: test this
 				e_cb(xhr.status);
 			}
 		}
@@ -58,7 +56,7 @@ function wkApiCall(apikey, request, s_cb, e_cb, async) {
 /*******************
 Backend storage of the words
 */
-function updateWordList(apikey) {
+function updateWords(apikey) {
 	// word is key, 
 	// and value is obj of proficiency (if its a word), endWord, and children
 	var trie = {}; 
@@ -69,8 +67,8 @@ function updateWordList(apikey) {
 	addWordsToTrie(trie, callApiSync(apikey, "vocabulary")["requested_information"]["general"]);
 
 	// Store trie
-	// TODO: async so this may not have ran
 	chrome.storage.local.set({ words : trie });
+	// TODO: get the kanji/vocab asynchronously
 }
 
 function addWordsToTrie(trie, items) {

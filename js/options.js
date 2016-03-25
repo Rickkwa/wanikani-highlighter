@@ -14,9 +14,10 @@ function saveOptions() {
 				setOptionsMessage("error", message);
 			}
 			else {
-				// if (apikey.length != 0) {
-					// updateWordList(apikey);
-				// }
+				if (apikey.length != 0) {
+					// Update words + reset polling timer
+					chromeBg.restartPollNewData();
+				}
 				setOptionsMessage("success", "Options Saved.", 2000);
 			}
 		});
