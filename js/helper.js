@@ -67,8 +67,6 @@ function updateWords(apikey) {
 	addWords(words, kanji);
 	addWords(words, vocab);
 
-	filterSubstrings(words);
-
 	chrome.storage.local.set({ words: words });
 	// TODO: make words be stored in background.js instead of chrome storage?
 }
@@ -87,16 +85,6 @@ function addWords(words, wkItems) {
 	}
 }
 
-// Filter out the words that are substrings of another word
-function filterSubstrings(words) {
-	for (var curWord in words) {
-		for (var otherWord in words) {
-			if (curWord != otherWord && otherWord.indexOf(curWord) != -1)
-				delete words[curWord];
-		}
-	}
-}
-
 // return an array of kanji/vocab from our words
 function getWordList(callback) {
 	var result = [];
@@ -104,10 +92,15 @@ function getWordList(callback) {
 		words: []
 	}, function(items) {
 		result = Object.keys(items.words);
+
+		// Sort by length of string in descending order
+		result.sort(function(a, b) {
+			return b.length - a.length;
+		})
+
 		callback(result);
 	});
 }
-
 
 
 

@@ -1,6 +1,5 @@
 if (!isExcludedSite() && containsJapanese($("body").text())) {
 	getWordList(function(wordList) {
-		console.log(wordList);
 		var regex = new RegExp(wordList.join("|"), "g");
 		$("body *").replaceText(regex, wrapText);
 	});
