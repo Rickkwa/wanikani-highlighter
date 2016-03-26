@@ -1,7 +1,12 @@
+var hlColor;
 if (!isExcludedSite() && containsJapanese($("body").text())) {
-	getWordList(function(wordList) {
-		var regex = new RegExp(wordList.join("|"), "g");
-		$("*").replaceText(regex, wrapText);
+	getHighlightColorHex(function(cl) {
+		hlColor = isHex(cl) ? cl : '#00ffff';
+
+		getWordList(function(wordList) {
+			var regex = new RegExp(wordList.join("|"), "g");
+			$("*").replaceText(regex, wrapText);
+		});
 	});
 } else { console.log("WKH", "Ignore page"); }
 
@@ -22,7 +27,7 @@ function containsJapanese(str) {
 }
 
 function wrapText(str) {
-	var hlColor = "#00ffff"; // cyan
+	// var hlColor = "#00ffff"; // cyan
 	var hlWrap = $("<span>").html(str).addClass("wkh-highlight");
 	// TODO: change text color if needed (so not similar to hlColor)
 	var rgb = hexToRgb(hlColor);

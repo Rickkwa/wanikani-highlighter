@@ -1,4 +1,24 @@
 /*******************
+Chrome Storage Getters/Setters
+*/
+function getHighlightColorHex(callback) {
+	chrome.storage.sync.get({
+		hlColor: ''
+	}, function(items) {
+		callback("#" + items.hlColor);
+	});
+}
+
+function getApikey(callback) {
+	chrome.storage.sync.get({
+		apikey: ''
+	}, function(items) {
+		callback(items.apikey);
+	});
+}
+
+
+/*******************
 WaniKani API Handling
 */
 
@@ -103,42 +123,11 @@ function getWordList(callback) {
 }
 
 
-
-/*
-function updateWords(apikey) {
-	// word is key, 
-	// and value is obj of proficiency (if its a word), endWord, and children
-	var trie = {}; 
-
-	// Get Kanji list and add it to trie
-	addWordsToTrie(trie, callApiSync(apikey, "kanji")["requested_information"]);
-	// Get Vocabulary list and add it to trie
-	addWordsToTrie(trie, callApiSync(apikey, "vocabulary")["requested_information"]["general"]);
-
-	// Store trie
-	chrome.storage.local.set({ words : trie });
-	// TODO: get the kanji/vocab asynchronously
-}
-
-function addWordsToTrie(trie, items) {
-	for (var index in items) {
-		var cur = trie;
-		var word = items[index]["character"];
-		for (var i = 0; i < word.length; i++) {
-			if (items[index]["user_specific"] == null) // word lesson is still pending so skip
-				continue;
-
-			// traverse down trie if it exists, else create entry
-			if (!cur.hasOwnProperty(word.charAt(i)))
-				cur[word.charAt(i)] = { endWord: false, proficiency: null };
-			cur = cur[word.charAt(i)];
-
-			// last word, set endWord and proficiency
-			if (i + 1 == word.length) {
-				cur["endWord"] = true;
-				cur["proficiency"] = items[index]["user_specific"]["srs"];
-			}
-		}
-	}
-}
+/*******************
+Non-project Specific
 */
+function isHex(str) {
+	if (str.startsWith("#"))
+		str = str.substring(1);
+	return str.match(/^[0-9A-Fa-f]{6}$/g) || str.match(/^[0-9A-Fa-f]{3}$/g);
+}

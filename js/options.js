@@ -5,18 +5,27 @@ var chromeBg = chrome.extension.getBackgroundPage();
 // Saves options to chrome.storage
 function saveOptions() {	
 	var apikey = document.getElementById("apikey").value.trim();
+	var color = document.getElementById("hl-color").value.trim();
+
+	// Check valid hexadecimal (including shorthand hex)
+	if (!chromeBg.isHex(color)) {
+		warnTextInput('hl-color');
+	} else { undoWarnTextInput('hl-color') };
 
 	chrome.storage.sync.set({
-		apikey: apikey
+		apikey: apikey,
+		hlColor: color
 	}, function() {
 		chromeBg.testApi(apikey, function(success, message) {
 			if (!success && apikey.length != 0) {
 				setOptionsMessage("error", message);
+				warnTextInput('apikey');
 			}
 			else {
 				if (apikey.length != 0) {
 					// Update words + reset polling timer
 					chromeBg.restartPollNewData();
+					undoWarnTextInput('apikey')
 				}
 				// TODO?: Move "Options saved" to top so it runs instantly (before testApi)
 				setOptionsMessage("success", "Options Saved.", 2000);
@@ -30,9 +39,15 @@ function saveOptions() {
 function fillOptions() {
 	// Sync variables, providing default values of element does not exist
 	chrome.storage.sync.get({
-		apikey: ''
+		apikey: '',
+		hlColor: '00ffff'
 	}, function(items) {
 		document.getElementById('apikey').value = items.apikey;
+		document.getElementById('hl-color').value = items.hlColor;
+
+		if (!chromeBg.isHex(items.hlColor)) {
+			warnTextInput('hl-color');
+		}
 	});
 }
 document.addEventListener("DOMContentLoaded", fillOptions);
@@ -57,4 +72,12 @@ function setOptionsMessage(type, msg, timeout) {
 			status.className = status.className.replace(regex, "");
 		}, timeout);
 	}
+}
+
+function warnTextInput(id) {
+	document.getElementById(id).style.borderColor = "red";
+}
+
+function undoWarnTextInput(id) {
+	document.getElementById(id).style.borderColor = "inherit";
 }
