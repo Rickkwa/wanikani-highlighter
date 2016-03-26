@@ -56,6 +56,62 @@ function wkApiCall(apikey, request, s_cb, e_cb, async) {
 /*******************
 Backend storage of the words
 */
+
+function updateWords(apikey) {
+	// Object with key being the kanji/vocab, and value being obj of proficiency
+	var words = {};
+
+	var kanji = callApiSync(apikey, "kanji")["requested_information"];
+	var vocab = callApiSync(apikey, "vocabulary")["requested_information"]["general"];
+
+	addWords(words, kanji);
+	addWords(words, vocab);
+
+	filterSubstrings(words);
+
+	chrome.storage.local.set({ words: words });
+	// TODO: make words be stored in background.js instead of chrome storage?
+}
+
+function addWords(words, wkItems) {
+	var profRank = ["apprentice", "guru", "master", "enlighten", "burned"];
+	var minProf = profRank.indexOf("apprentice");
+
+	for (var index in wkItems) {
+		if (wkItems[index]["user_specific"] == null)
+			continue;
+		var w = wkItems[index]["character"];
+		if (profRank.indexOf(wkItems[index]["user_specific"]["srs"]) >= minProf) {
+			words[w] = { proficiency: wkItems[index]["user_specific"]["srs"] };
+		}
+	}
+}
+
+// Filter out the words that are substrings of another word
+function filterSubstrings(words) {
+	for (var curWord in words) {
+		for (var otherWord in words) {
+			if (curWord != otherWord && otherWord.indexOf(curWord) != -1)
+				delete words[curWord];
+		}
+	}
+}
+
+// return an array of kanji/vocab from our words
+function getWordList(callback) {
+	var result = [];
+	chrome.storage.local.get({
+		words: []
+	}, function(items) {
+		result = Object.keys(items.words);
+		callback(result);
+	});
+}
+
+
+
+
+/*
 function updateWords(apikey) {
 	// word is key, 
 	// and value is obj of proficiency (if its a word), endWord, and children
@@ -92,3 +148,4 @@ function addWordsToTrie(trie, items) {
 		}
 	}
 }
+*/

@@ -18,6 +18,7 @@ function saveOptions() {
 					// Update words + reset polling timer
 					chromeBg.restartPollNewData();
 				}
+				// TODO?: Move "Options saved" to top so it runs instantly (before testApi)
 				setOptionsMessage("success", "Options Saved.", 2000);
 			}
 		});
