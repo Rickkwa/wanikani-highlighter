@@ -129,5 +129,5 @@ Non-project Specific
 function isHex(str) {
 	if (str.startsWith("#"))
 		str = str.substring(1);
-	return str.match(/^[0-9A-Fa-f]{6}$/g) || str.match(/^[0-9A-Fa-f]{3}$/g);
+	return /^[0-9A-Fa-f]{6}$/g.test(str) || /^[0-9A-Fa-f]{3}$/g.test(str);
 }

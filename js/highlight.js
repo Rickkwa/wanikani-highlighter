@@ -23,7 +23,7 @@ function containsJapanese(str) {
 	// http://stackoverflow.com/questions/15033196/using-javascript-to-check-whether-a-string-contains-japanese-characters-includi
 	// Exclude punctuations, full width roman chars/half width katakana, and rare
 
-	return str.match(/[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/);
+	return /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/.test(str);
 }
 
 function wrapText(str) {
