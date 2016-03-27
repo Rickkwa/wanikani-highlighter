@@ -33,6 +33,7 @@ body {
 .bottom {
 }
 
+
 #status {
 	min-height: 24px;
 	line-height: 24px;
@@ -59,6 +60,7 @@ body {
 	line-height: 32px;
 	font-size: 16px;
 	cursor: pointer;
+	border-radius: 2px;
 }
 
 .full-width {

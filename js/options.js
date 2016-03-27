@@ -16,7 +16,7 @@ function saveOptions() {
 		apikey: apikey,
 		hlColor: color
 	}, function() {
-		chromeBg.testApi(apikey, function(success, message) {
+		chromeBg.testApi(apikey, function(success, message) { // TODO: Can move this outside of chrome.storage.sync.set?
 			if (!success && apikey.length != 0) {
 				setOptionsMessage("error", message);
 				warnTextInput('apikey');
