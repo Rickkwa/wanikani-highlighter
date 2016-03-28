@@ -6,6 +6,7 @@ var chromeBg = chrome.extension.getBackgroundPage();
 function saveOptions() {	
 	var apikey = document.getElementById("apikey").value.trim();
 	var color = document.getElementById("hl-color").value.trim();
+	var proficiency = document.getElementById("hl-proficiency").value;
 
 	// Check valid hexadecimal (including shorthand hex)
 	if (!chromeBg.isHex(color)) {
@@ -14,7 +15,8 @@ function saveOptions() {
 
 	chrome.storage.sync.set({
 		apikey: apikey,
-		hlColor: color
+		hlColor: color,
+		minProf: proficiency
 	}, function() {
 		chromeBg.testApi(apikey, function(success, message) { // TODO: Can move this outside of chrome.storage.sync.set?
 			if (!success && apikey.length != 0) {
@@ -40,10 +42,12 @@ function fillOptions() {
 	// Sync variables, providing default values of element does not exist
 	chrome.storage.sync.get({
 		apikey: '',
-		hlColor: '00ffff'
+		hlColor: '00ffff',
+		minProf: 'apprentice'
 	}, function(items) {
 		document.getElementById('apikey').value = items.apikey;
 		document.getElementById('hl-color').value = items.hlColor;
+		document.getElementById('hl-proficiency').value = items.minProf;
 
 		if (!chromeBg.isHex(items.hlColor)) {
 			warnTextInput('hl-color');

@@ -78,28 +78,31 @@ Backend storage of the words
 */
 
 function updateWords(apikey) {
-	// Object with key being the kanji/vocab, and value being obj of proficiency
-	var words = {};
-
 	var kanji = callApiSync(apikey, "kanji")["requested_information"];
 	var vocab = callApiSync(apikey, "vocabulary")["requested_information"]["general"];
 
-	addWords(words, kanji);
-	addWords(words, vocab);
+	chrome.storage.sync.get({
+		minProf: ''
+	}, function(items) {
+		var words = {};
 
-	chrome.storage.local.set({ words: words });
-	// TODO: make words be stored in background.js instead of chrome storage?
+		addWords(words, kanji, items.minProf);
+		addWords(words, vocab, items.minProf);
+
+		chrome.storage.local.set({ words: words });
+		// TODO: make words be stored in background.js instead of chrome storage?
+	});
 }
 
-function addWords(words, wkItems) {
+function addWords(words, wkItems, minProf) {
 	var profRank = ["apprentice", "guru", "master", "enlighten", "burned"];
-	var minProf = profRank.indexOf("apprentice");
+	var minProfIndex = profRank.indexOf(minProf) == -1 ? 0 : profRank.indexOf(minProf);
 
 	for (var index in wkItems) {
 		if (wkItems[index]["user_specific"] == null)
 			continue;
 		var w = wkItems[index]["character"];
-		if (profRank.indexOf(wkItems[index]["user_specific"]["srs"]) >= minProf) {
+		if (profRank.indexOf(wkItems[index]["user_specific"]["srs"]) >= minProfIndex) {
 			words[w] = { proficiency: wkItems[index]["user_specific"]["srs"] };
 		}
 	}

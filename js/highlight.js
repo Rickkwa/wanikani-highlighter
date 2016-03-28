@@ -10,7 +10,6 @@ if (!isExcludedSite() && containsJapanese($("body").text())) {
 	});
 } else { console.log("WKH", "Ignore page"); }
 
-
 // TODO: How to handle dynamic content?
 
 

@@ -9,13 +9,24 @@
 
 	<div id="options">
 		<div>
-			<label for="apikey">API Key: </label>
+			<label for="apikey">API Key </label>
 			<input id="apikey" class="full-width" type="text" maxlength="32"/>
 		</div>
 
 		<div>
-			<label for="apikey">Highlight Color:</label>
+			<label for="hl-color">Highlight Color</label>
 			#<input id="hl-color" class="" type="text" size="6" maxlength="6"/>
+		</div>
+
+		<div>
+			<label for="hl-proficiency">Highlight Words</label>
+			<select id="hl-proficiency">
+				<option value="apprentice">Apprentice and higher</option>
+				<option value="guru">Guru and higher</option>
+				<option value="master">Master and higher</option>
+				<option value="enlighten">Enlightened and higher</option>
+				<option value="burned">Burned only</option>
+			</select>
 		</div>
 	</div>
 </div>
