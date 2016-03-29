@@ -54,7 +54,6 @@ input[type=text] {
 .list-row > span {
 	display: inline-block;
 	vertical-align: middle;
-	overflow-x: auto;
 }
 
 .list-chk {
@@ -63,6 +62,7 @@ input[type=text] {
 
 .list-site {
 	width: 540px;
+	overflow-x: hidden;
 }
 
 .list-type {

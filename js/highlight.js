@@ -8,7 +8,7 @@ getExcludeList(function(eList) {
 
 			getWordList(function(wordList) {
 				var regex = new RegExp(wordList.join("|"), "g");
-				$("*").replaceText(regex, wrapText);
+				$("*:not(noscript):not(script):not(textarea):not(style)").replaceText(regex, wrapText);
 			});
 		});
 	} else { console.log("WKH", "Ignore page"); }
@@ -31,11 +31,9 @@ function isExcludedSite() {
 
 		// Test regex
 		if (regex.test(curSite)) {
-			console.log("true exclude", ei.site, ei.type, curSite);
 			return true;
 		}
 	}
-	console.log("false exclude", curSite);
 	return false;
 
 	// http://stackoverflow.com/a/3561711/2079781
