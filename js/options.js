@@ -53,9 +53,15 @@ function fillOptions() {
 			warnTextInput('hl-color');
 		}
 	});
+
 }
 document.addEventListener("DOMContentLoaded", fillOptions);
 document.getElementById("save-btn").addEventListener("click", saveOptions);
+document.getElementById("exclude-btn").onclick = function() {
+	chrome.tabs.create({
+		url: "../html/exclude_list.html"
+	});
+}
 
 
 /*

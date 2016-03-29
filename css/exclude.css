@@ -1,0 +1,90 @@
+h1 {
+	margin: 0;
+}
+
+input[type=text] {
+	outline: none;
+}
+
+.body-container {
+	margin: 0 auto;
+	width: 800px;
+	padding: 20px;
+	background-color: #e5e3e3;
+}
+
+.top {
+	margin-bottom: 30px;
+	font-family: "Verdana";
+}
+
+#list-type-container {
+	margin-bottom: 5px;
+}
+
+#list-type-container input {
+	margin: 5px 0;
+}
+
+#exclude-url {
+	margin-left: 2px;
+	width: 270px;
+}
+
+#list-header {
+	background-color: #E8009B;
+	color: white;
+	font-weight: bold;
+}
+
+#list-items {
+	background-color: white;
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.list-row {
+	font-size: 1.2em;
+	padding: 3px;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+.list-row > span {
+	display: inline-block;
+	vertical-align: middle;
+	overflow-x: auto;
+}
+
+.list-chk {
+	width: 35px;
+}
+
+.list-site {
+	width: 540px;
+}
+
+.list-type {
+	width: 50px;
+	text-align: center;
+}
+
+.list-date {
+	width: 120px;
+	text-align: center;
+}
+
+#list-container {
+	margin: 5px 0;
+}
+
+#list-filter-txt {
+	width: 230px;
+}
+
+.rfloat {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}

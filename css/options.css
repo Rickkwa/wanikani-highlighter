@@ -53,7 +53,6 @@ body {
 }
 
 .big-btn {
-	/*background-color: gray;*/
 	background-color: #E8009B;
 	color: white;
 	width: 100%;
@@ -62,6 +61,11 @@ body {
 	font-size: 16px;
 	cursor: pointer;
 	border-radius: 2px;
+	margin-bottom: 2px;
+}
+
+.big-btn:hover {
+	background-color: #AD0074;
 }
 
 .full-width {

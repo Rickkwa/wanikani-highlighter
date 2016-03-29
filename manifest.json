@@ -9,6 +9,7 @@
 	},
 	"permissions": [
 		"storage",
+		"tabs",
 		"*://www.wanikani.com/api/*"
 		// "*://*/*"
 	],
