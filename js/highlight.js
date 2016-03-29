@@ -54,7 +54,7 @@ function wrapText(str) {
 	var hlWrap = $("<span>").html(str).addClass("wkh-highlight");
 	// TODO: change text color if needed (so not similar to hlColor)
 	var rgb = hexToRgb(hlColor);
-	var opacity = 0.3;
+	var opacity = 1;
 	hlWrap = hlWrap.css({
 		"background-color": "rgba("+rgb.r+","+rgb.g+","+rgb.b+","+opacity+")"
 	});
