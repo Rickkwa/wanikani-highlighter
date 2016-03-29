@@ -17,6 +17,13 @@ function getApikey(callback) {
 	});
 }
 
+function getExcludeList(callback) {
+	chrome.storage.sync.get({
+		excludeList: []
+	}, function(items) {
+		callback(items.excludeList);
+	});
+}
 
 /*******************
 WaniKani API Handling
