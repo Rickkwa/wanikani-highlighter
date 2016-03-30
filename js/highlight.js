@@ -54,7 +54,7 @@ function containsJapanese(str) {
 
 function wrapText(str) {
 	// var hlColor = "#00ffff"; // cyan
-	var hlWrap = $("<span>").html(str).addClass("wkh-highlight");
+	var hlWrap = $("<mark>").html(str).addClass("wkh-highlight");
 	// TODO: change text color if needed (so not similar to hlColor)
 	var rgb = hexToRgb(hlColor);
 	var opacity = hlOpacity / 100;

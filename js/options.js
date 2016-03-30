@@ -10,8 +10,9 @@ document.getElementById("exclude-btn").onclick = function() {
 		url: "../html/exclude_list.html"
 	});
 }
-document.getElementById("hl-color").onchange = updatePreview;
-document.getElementById("hl-opacity").onchange = updatePreview;
+document.getElementById("hl-color").onkeyup = updatePreview;
+document.getElementById("hl-opacity").onkeyup = updatePreview;
+document.getElementById("hl-opacity").onkeypress = function(e) { return e.charCode >= 48 && e.charCode <= 57 };
 
 
 // Saves options to chrome.storage
@@ -109,14 +110,14 @@ function updatePreview() {
 
 function setPreview(color, opacity) {
 	// Fill preview box
-	var rgb = chromeBg.hexToRgb(color);
-	var cssOpacity = opacity / 100;
+	var rgb = chromeBg.isHex(color) ? chromeBg.hexToRgb(color) : { r: 255, g: 255, b: 255 };
+	var cssOpacity = isNaN(opacity) ? 1 : (opacity / 100);
 	document.getElementById('hl-preview').style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${cssOpacity})`;
 }
 
 // return true if string is num in range [min, max]
 function isNumRange(str, min, max) {
-	if (!/^[0-9]+$/.test(str))
+	if (str == "" || isNaN(str))
 		return false;
 	var n = parseInt(str);
 	return n >= min && n <= max;
