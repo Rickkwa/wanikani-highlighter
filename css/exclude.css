@@ -62,7 +62,7 @@ input[type=text] {
 
 .list-site {
 	width: 540px;
-	overflow-x: hidden;
+	word-wrap: break-word;
 }
 
 .list-type {
