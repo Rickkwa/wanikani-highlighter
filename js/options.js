@@ -2,20 +2,38 @@
 
 var chromeBg = chrome.extension.getBackgroundPage();
 
+// Bind stuff
+document.addEventListener("DOMContentLoaded", fillOptions);
+document.getElementById("save-btn").addEventListener("click", saveOptions);
+document.getElementById("exclude-btn").onclick = function() {
+	chrome.tabs.create({
+		url: "../html/exclude_list.html"
+	});
+}
+document.getElementById("hl-color").onchange = updatePreview;
+document.getElementById("hl-opacity").onchange = updatePreview;
+
+
 // Saves options to chrome.storage
 function saveOptions() {	
 	var apikey = document.getElementById("apikey").value.trim();
 	var color = document.getElementById("hl-color").value.trim();
-	var proficiency = document.getElementById("hl-proficiency").value;
+	var proficiency = document.getElementById("proficiency").value;
+	var opacity = document.getElementById("hl-opacity").value.trim();
 
 	// Check valid hexadecimal (including shorthand hex)
 	if (!chromeBg.isHex(color)) {
 		warnTextInput('hl-color');
 	} else { undoWarnTextInput('hl-color') };
 
+	// Ensure opacity is number between 0-100. Else set to 100.
+	if (!isNumRange(opacity, 0, 100))
+		opacity = "100";
+
 	chrome.storage.sync.set({
 		apikey: apikey,
 		hlColor: color,
+		hlOpacity: opacity,
 		minProf: proficiency
 	}, function() {
 		chromeBg.testApi(apikey, function(success, message) { // TODO: Can move this outside of chrome.storage.sync.set?
@@ -43,25 +61,22 @@ function fillOptions() {
 	chrome.storage.sync.get({
 		apikey: '',
 		hlColor: '00ffff',
+		hlOpacity: 100,
 		minProf: 'apprentice'
 	}, function(items) {
 		document.getElementById('apikey').value = items.apikey;
 		document.getElementById('hl-color').value = items.hlColor;
-		document.getElementById('hl-proficiency').value = items.minProf;
+		document.getElementById('proficiency').value = items.minProf;
+		document.getElementById('hl-opacity').value = items.hlOpacity;
+
+		setPreview(items.hlColor, items.hlOpacity);
 
 		if (!chromeBg.isHex(items.hlColor)) {
 			warnTextInput('hl-color');
 		}
 	});
+}
 
-}
-document.addEventListener("DOMContentLoaded", fillOptions);
-document.getElementById("save-btn").addEventListener("click", saveOptions);
-document.getElementById("exclude-btn").onclick = function() {
-	chrome.tabs.create({
-		url: "../html/exclude_list.html"
-	});
-}
 
 
 /*
@@ -82,6 +97,28 @@ function setOptionsMessage(type, msg, timeout) {
 			status.className = status.className.replace(regex, "");
 		}, timeout);
 	}
+}
+
+function updatePreview() {
+	var cl = document.getElementById('hl-color').value.trim();
+	var op = document.getElementById('hl-opacity').value.trim();
+
+	setPreview(cl, op);
+}
+
+function setPreview(color, opacity) {
+	// Fill preview box
+	var rgb = chromeBg.hexToRgb(color);
+	var cssOpacity = opacity / 100;
+	document.getElementById('hl-preview').style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${cssOpacity})`;
+}
+
+// return true if string is num in range [min, max]
+function isNumRange(str, min, max) {
+	if (!/^[0-9]+$/.test(str))
+		return false;
+	var n = parseInt(str);
+	return n >= min && n <= max;
 }
 
 function warnTextInput(id) {

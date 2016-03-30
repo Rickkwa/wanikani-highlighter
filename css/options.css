@@ -12,7 +12,7 @@ body {
 	font-size: 18px;
 }
 
-#options div {
+#options > div {
 	margin-bottom: 12px;
 }
 
@@ -21,14 +21,30 @@ body {
 	padding-bottom: 5px;
 }
 
-#options input, #options select {
+#options input, #options select, #hl-preview {
 	height: 32px;
 	line-height: 32px;
-	padding: 0 5px;
 	border-radius: 2px;
 	border: 1px solid gray;
+}
+
+#options input, #options select {
+	padding: 0 5px;
 	outline: none;
 	font-family: "Verdana";
+}
+
+
+.multi-column > div {
+	float: left;
+}
+
+.multi-column > div:not(:last-of-type) {
+	margin-right: 25px;
+}
+
+#hl-preview {
+	width: 32px; /* Matching the text input box's height */
 }
 
 .bottom {
@@ -61,7 +77,9 @@ body {
 	font-size: 16px;
 	cursor: pointer;
 	border-radius: 2px;
-	margin-bottom: 2px;
+}
+.big-btn:not(:last-child) {
+	margin-bottom: 4px;
 }
 
 .big-btn:hover {
@@ -70,4 +88,11 @@ body {
 
 .full-width {
 	width: 100%;
+}
+
+.clear {
+	clear: both;
+}
+span.clear {
+	display: block;
 }

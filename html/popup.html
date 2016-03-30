@@ -13,14 +13,25 @@
 			<input id="apikey" class="full-width" type="text" maxlength="32"/>
 		</div>
 
-		<div>
-			<label for="hl-color">Highlight Color</label>
-			#<input id="hl-color" class="" type="text" size="6" maxlength="6"/>
+		<div class="multi-column">
+			<div>
+				<label for="hl-color">Highlight Color</label>
+				#<input id="hl-color" class="" type="text" size="6" maxlength="6"/>
+			</div>
+			<div>
+				<label for="hl-opacity">Opacity</label>
+				<input id="hl-opacity" class="" type="text" size="3" maxlength="3"/>%
+			</div>
+			<div>
+				<label>Preview</label>
+				<div id="hl-preview"></div>
+			</div>
+			<span class="clear"></span>
 		</div>
 
 		<div>
-			<label for="hl-proficiency">Highlight Words</label>
-			<select id="hl-proficiency">
+			<label for="proficiency">Highlight Words</label>
+			<select id="proficiency">
 				<option value="apprentice">Apprentice and higher</option>
 				<option value="guru">Guru and higher</option>
 				<option value="master">Master and higher</option>

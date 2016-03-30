@@ -1,20 +1,23 @@
-var hlColor, excludeList;
+var hlColor, excludeList, hlOpacity;
 
-getExcludeList(function(eList) {
-	excludeList = eList;
+chrome.storage.sync.get({
+	hlColor: '',
+	hlOpacity: 100,
+	excludeList: []
+}, function(items) {
+	hlColor = items.hlColor;
+	hlOpacity = items.hlOpacity;
+	excludeList = items.excludeList;
+
 	if (!isExcludedSite() && containsJapanese($("body").text())) {
-		getHighlightColorHex(function(cl) {
-			hlColor = isHex(cl) ? cl : '#00ffff';
+		hlColor = isHex(hlColor) ? hlColor : '#00ffff';
 
-			getWordList(function(wordList) {
-				var regex = new RegExp(wordList.join("|"), "g");
-				$("*:not(noscript):not(script):not(textarea):not(style)").replaceText(regex, wrapText);
-			});
+		getWordList(function(wordList) {
+			var regex = new RegExp(wordList.join("|"), "g");
+			$("*:not(noscript):not(script):not(textarea):not(style)").replaceText(regex, wrapText);
 		});
 	} else { console.log("WKH", "Ignore page"); }
 });
-
-// TODO: How to handle dynamic content?
 
 
 // Return whether the current page is in the exclude list
@@ -54,25 +57,11 @@ function wrapText(str) {
 	var hlWrap = $("<span>").html(str).addClass("wkh-highlight");
 	// TODO: change text color if needed (so not similar to hlColor)
 	var rgb = hexToRgb(hlColor);
-	var opacity = 1;
+	var opacity = hlOpacity / 100;
 	hlWrap = hlWrap.css({
 		"background-color": "rgba("+rgb.r+","+rgb.g+","+rgb.b+","+opacity+")"
 	});
 	return hlWrap.wrap("<span>").parent().html();
 }
 
-// http://stackoverflow.com/a/5624139/2079781
-function hexToRgb(hex) {
-	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-	var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-	hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-		return r + r + g + g + b + b;
-	});
 
-	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-	return result ? {
-		r: parseInt(result[1], 16),
-		g: parseInt(result[2], 16),
-		b: parseInt(result[3], 16)
-	} : null;
-}
