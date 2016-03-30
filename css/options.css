@@ -44,6 +44,12 @@ body {
 
 #hl-preview {
 	width: 32px; /* Matching the text input box's height */
+	cursor: pointer;
+}
+
+#color-picker {
+	visibility: hidden;
+	position: absolute;
 }
 
 .bottom {

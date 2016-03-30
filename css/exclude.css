@@ -2,7 +2,7 @@ h1 {
 	margin: 0;
 }
 
-input[type=text] {
+input[type=text], input[type=search] {
 	outline: none;
 }
 

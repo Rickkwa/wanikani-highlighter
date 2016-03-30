@@ -4,7 +4,7 @@ var chromeBg = chrome.extension.getBackgroundPage();
 
 // Bind stuff
 document.addEventListener("DOMContentLoaded", fillOptions);
-document.getElementById("save-btn").addEventListener("click", saveOptions);
+document.getElementById("save-btn").onclick = saveOptions;
 document.getElementById("exclude-btn").onclick = function() {
 	chrome.tabs.create({
 		url: "../html/exclude_list.html"
@@ -13,6 +13,18 @@ document.getElementById("exclude-btn").onclick = function() {
 document.getElementById("hl-color").onkeyup = updatePreview;
 document.getElementById("hl-opacity").onkeyup = updatePreview;
 document.getElementById("hl-opacity").onkeypress = function(e) { return e.charCode >= 48 && e.charCode <= 57 };
+document.getElementById("hl-preview").onclick = function() {
+	var target = document.getElementById("color-picker")
+	var hex = "#" + document.getElementById("hl-color").value;
+	target.value = chromeBg.isHex(hex) ? hex : "#00ffff";
+	target.click();
+}
+document.getElementById("color-picker").oninput = function() { 
+	document.getElementById("hl-color").value = this.value.replace("#", "");
+	updatePreview();
+}
+
+
 
 
 // Saves options to chrome.storage
@@ -104,7 +116,6 @@ function setOptionsMessage(type, msg, timeout) {
 function updatePreview() {
 	var cl = document.getElementById('hl-color').value.trim();
 	var op = document.getElementById('hl-opacity').value.trim();
-
 	setPreview(cl, op);
 }
 
