@@ -14,7 +14,7 @@ chrome.storage.sync.get({
 
 		getWordList(function(wordList) {
 			var regex = new RegExp(wordList.join("|"), "g");
-			$("*:not(noscript):not(script):not(textarea):not(style)").replaceText(regex, wrapText);
+			$("body, body *:not(script):not(textarea):not(style)").replaceText(regex, wrapText);
 		});
 	} else { console.log("WKH", "Ignore page"); }
 });
