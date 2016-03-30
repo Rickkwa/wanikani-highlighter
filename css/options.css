@@ -60,6 +60,13 @@ body {
 	text-align: center;
 }
 
+#status div.loading {
+	height: 24px;
+	background: url("../img/loader.gif");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 #status.error {
 	background-color: #f2dede;
 }

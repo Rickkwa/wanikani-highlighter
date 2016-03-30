@@ -30,6 +30,7 @@ function saveOptions() {
 	if (!isNumRange(opacity, 0, 100))
 		opacity = "100";
 
+	setOptionsMessage("", "<div class='loading'></div>");
 	chrome.storage.sync.set({
 		apikey: apikey,
 		hlColor: color,
@@ -48,7 +49,7 @@ function saveOptions() {
 					undoWarnTextInput('apikey')
 				}
 				// TODO?: Move "Options saved" to top so it runs instantly (before testApi)
-				setOptionsMessage("success", "Options Saved.", 2000);
+				setOptionsMessage("success", "Options Saved.", 4000);
 			}
 		});
 	});
@@ -88,13 +89,13 @@ function fillOptions() {
 function setOptionsMessage(type, msg, timeout) {
 	timeout = timeout || 0;
 	var status = document.getElementById("status");
-	status.textContent = msg;
+	status.innerHTML = msg;
 	status.className += " " + type;
 	if (timeout > 0) {
 		setTimeout(function() {
-			status.textContent = '';
+			status.innerHTML = '';
 			var regex = new RegExp("(?:^|\\s)(success|error)(?!\\S)", "g");
-			status.className = status.className.replace(regex, "");
+			status.className = status.className.replace(regex, "").trim();
 		}, timeout);
 	}
 }
