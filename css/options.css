@@ -5,13 +5,8 @@ body {
 }
 
 header {
-	background-color: #ECECEC;
-	color: #404040;
-
-	background-color: #4E4E4E;
 	background-color: #E8009B;
 	color: white;
-
 	padding: 15px;
 	margin-bottom: 10px;
 }
