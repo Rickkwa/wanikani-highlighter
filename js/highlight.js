@@ -14,10 +14,35 @@ chrome.storage.sync.get({
 
 		getWordList(function(wordList) {
 			var regex = new RegExp(wordList.join("|"), "g");
-			$("body, body *:not(script):not(textarea):not(style)").replaceText(regex, wrapText);
+			var ignored = ["script", "textarea", "style"];
+			$("body, body *").not(ignored.join(", ")).replaceText(regex, wrapText);
+			replaceDynamicContent(regex, ignored);
 		});
 	} else { console.log("WKH", "Ignore page"); }
 });
+
+
+function replaceDynamicContent(regex, nots) {
+	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+	var observer = new MutationObserver(function(mutations, observer) {
+		for (var i = 0; i < mutations.length; i++) {
+			var nodes = mutations[i].addedNodes;
+			for (var j = 0; j < nodes.length; j++) {
+				var $node = $(nodes[j]);
+				if (!$node.hasClass("wkh-hl")) {
+					if (nodes[j].nodeType == 3) // text node
+						$node.parent().replaceText(regex, wrapText);
+					else
+						$node.add($node.children()).not(nots.join(", ")).replaceText(regex, wrapText);
+				}
+			}
+		}
+	});
+	observer.observe(document, {
+		childList: true,
+		subtree: true
+	});
+}
 
 
 // Return whether the current page is in the exclude list
@@ -48,13 +73,12 @@ function isExcludedSite() {
 function containsJapanese(str) {
 	// http://stackoverflow.com/questions/15033196/using-javascript-to-check-whether-a-string-contains-japanese-characters-includi
 	// Exclude punctuations, full width roman chars/half width katakana, and rare
-
 	return /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/.test(str);
 }
 
 function wrapText(str) {
 	// var hlColor = "#00ffff"; // cyan
-	var hlWrap = $("<mark>").html(str).addClass("wkh-highlight");
+	var hlWrap = $("<mark>").html(str).addClass("wkh-hl");
 	// TODO: change text color if needed (so not similar to hlColor)
 	var rgb = hexToRgb(hlColor);
 	var opacity = hlOpacity / 100;
