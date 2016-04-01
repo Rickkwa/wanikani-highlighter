@@ -139,5 +139,5 @@ function warnTextInput(id) {
 }
 
 function undoWarnTextInput(id) {
-	document.getElementById(id).style.borderColor = "inherit";
+	document.getElementById(id).style.borderColor = "gray";
 }

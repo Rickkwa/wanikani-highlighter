@@ -11,8 +11,8 @@ input[type=text], input[type=search] {
 	width: 800px;
 	padding: 20px 40px;
 	background-color: #eaeaea;
-	border-left: 10px solid #E8009B;
-	border-right: 10px solid #E8009B;
+	border-left: 10px solid #4160DF;
+	border-right: 10px solid #4160DF;
 }
 
 .top {
@@ -34,7 +34,7 @@ input[type=text], input[type=search] {
 }
 
 #list-header {
-	background-color: #E8009B;
+	background-color: #4160DF;
 	color: white;
 	font-weight: bold;
 }

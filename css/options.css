@@ -1,22 +1,31 @@
 body {
-	width: 400px;
+	width: 325px;
 	margin: 0;
 	padding: 0;
 }
 
 header {
-	background-color: #E8009B;
+	background-color: #4160DF;
 	color: white;
 	padding: 15px;
 	margin-bottom: 10px;
 }
 
-header h1 {
+header h1, header h6 {
 	font-family: "Verdana";
-	font-size: 18px;
 	text-align: center;
 	padding: 0;
 	margin: 0;
+}
+
+header h1 {
+	font-size: 18px;
+}
+
+header h6 {
+	font-size: 18px;
+	font-weight: normal;
+	margin-top: 10px;
 }
 
 .top {
@@ -96,7 +105,7 @@ header h1 {
 }
 
 .big-btn {
-	background-color: #E8009B;
+	background-color: #4160DF;
 	color: white;
 	width: 100%;
 	text-align: center;
@@ -112,7 +121,7 @@ header h1 {
 }
 
 .big-btn:hover {
-	background-color: #AD0074;
+	background-color: #324FC7;
 }
 
 .full-width {
