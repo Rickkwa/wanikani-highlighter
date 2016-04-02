@@ -1,8 +1,6 @@
-// chrome.storage.sync.remove("excludeList");
-
 // Populate current exclude list
 var curExcludeList;
-chrome.storage.sync.get({
+chrome.storage.local.get({
 	excludeList: []
 }, function(items) {
 	curExcludeList = items.excludeList;
@@ -62,7 +60,7 @@ document.getElementById("add-btn").onclick = function() {
 			curExcludeList.push(newItem);
 
 		// Save
-		chrome.storage.sync.set({
+		chrome.storage.local.set({
 			excludeList: curExcludeList
 		}, function() {
 			// Update table
@@ -89,7 +87,7 @@ document.getElementById("remove-btn").onclick = function() {
 		});
 
 		// Save
-		chrome.storage.sync.set({
+		chrome.storage.local.set({
 			excludeList: curExcludeList
 		}, function() {
 			// Update table

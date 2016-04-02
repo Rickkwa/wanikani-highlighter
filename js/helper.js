@@ -64,10 +64,15 @@ function updateWords(apikey) {
 	chrome.storage.sync.get({
 		minProf: ''
 	}, function(items) {
-		var words = {};
+		var words = [];
 
 		addWords(words, kanji, items.minProf);
 		addWords(words, vocab, items.minProf);
+
+		// Sort by length of string in descending order
+		words.sort(function(a, b) {
+			return b.length - a.length;
+		});
 
 		chrome.storage.local.set({ words: words });
 		// TODO: make words be stored in background.js instead of chrome storage?
@@ -82,27 +87,10 @@ function addWords(words, wkItems, minProf) {
 		if (wkItems[index]["user_specific"] == null)
 			continue;
 		var w = wkItems[index]["character"];
-		if (profRank.indexOf(wkItems[index]["user_specific"]["srs"]) >= minProfIndex) {
-			words[w] = { proficiency: wkItems[index]["user_specific"]["srs"] };
+		if (profRank.indexOf(wkItems[index]["user_specific"]["srs"]) >= minProfIndex && !words.includes(w)) {
+			words.push(w);
 		}
 	}
-}
-
-// return an array of kanji/vocab from our words
-function getWordList(callback) {
-	var result = [];
-	chrome.storage.local.get({
-		words: []
-	}, function(items) {
-		result = Object.keys(items.words);
-
-		// Sort by length of string in descending order
-		result.sort(function(a, b) {
-			return b.length - a.length;
-		})
-
-		callback(result);
-	});
 }
 
 

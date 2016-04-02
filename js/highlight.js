@@ -1,24 +1,27 @@
-var hlColor, excludeList, hlOpacity;
+var hlColor, excludeList, hlOpacity, wordList;
 
 chrome.storage.sync.get({
 	hlColor: '',
-	hlOpacity: 100,
-	excludeList: []
+	hlOpacity: 100
 }, function(items) {
 	hlColor = items.hlColor;
 	hlOpacity = items.hlOpacity;
-	excludeList = items.excludeList;
 
-	if (!isExcludedSite() && containsJapanese($("body").text())) {
-		hlColor = isHex(hlColor) ? hlColor : '#00ffff';
+	chrome.storage.local.get({
+		words: [],
+		excludeList: []
+	}, function(localItems) {
+		excludeList = localItems.excludeList;
+		wordList = localItems.words;
+		if (!isExcludedSite() && containsJapanese($("body").text())) {
+			hlColor = isHex(hlColor) ? hlColor : '#00ffff';
 
-		getWordList(function(wordList) {
 			var regex = new RegExp(wordList.join("|"), "g");
 			var ignored = ["script", "textarea", "style"];
 			$("body, body *").not(ignored.join(", ")).replaceText(regex, wrapText);
 			replaceDynamicContent(regex, ignored);
-		});
-	} else { console.log("WKH", "Ignore page"); }
+		} else { console.log("WKH", "Ignore page"); }
+	});
 });
 
 
