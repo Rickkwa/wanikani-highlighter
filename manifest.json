@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "WaniKani Highlighter",
 	"version": "1.0",
-	"description": "Highlights your vocabulary/kanji on webpages.",
+	"description": "Highlights your WaniKani kanji and vocabulary on webpages that you visit.",
 	"icons": {
 		"128": "img/icon128.png"
 	},

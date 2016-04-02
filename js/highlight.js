@@ -80,13 +80,13 @@ function containsJapanese(str) {
 }
 
 function wrapText(str) {
-	// var hlColor = "#00ffff"; // cyan
 	var hlWrap = $("<mark>").html(str).addClass("wkh-hl");
 	// TODO: change text color if needed (so not similar to hlColor)
 	var rgb = hexToRgb(hlColor);
 	var opacity = hlOpacity / 100;
 	hlWrap = hlWrap.css({
-		"background-color": "rgba("+rgb.r+","+rgb.g+","+rgb.b+","+opacity+")"
+		"background-color": "rgba("+rgb.r+","+rgb.g+","+rgb.b+","+opacity+")",
+		"color": "inherit"
 	});
 	return hlWrap.wrap("<span>").parent().html();
 }
