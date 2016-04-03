@@ -81,7 +81,7 @@ function updateWords(apikey) {
 
 function addWords(words, wkItems, minProf) {
 	var profRank = ["apprentice", "guru", "master", "enlighten", "burned"];
-	var minProfIndex = profRank.indexOf(minProf) == -1 ? 0 : profRank.indexOf(minProf);
+	var minProfIndex = !profRank.includes(minProf) ? 0 : profRank.indexOf(minProf);
 
 	for (var index in wkItems) {
 		if (wkItems[index]["user_specific"] == null)

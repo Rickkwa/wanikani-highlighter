@@ -10,6 +10,7 @@
 		"default_title": "WaniKani Highlighter",
 		"default_popup": "html/popup.html"
 	},
+	"options_page": "html/popup.html",
 	"permissions": [
 		"storage",
 		"tabs",

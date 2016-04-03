@@ -50,7 +50,7 @@ function saveOptions() {
 		hlOpacity: opacity,
 		minProf: proficiency
 	}, function() {
-		chromeBg.testApi(apikey, function(success, message) { // TODO: Can move this outside of chrome.storage.sync.set?
+		chromeBg.testApi(apikey, function(success, message) {
 			if (!success && apikey.length != 0) {
 				setOptionsMessage("error", message);
 				warnTextInput('apikey');
