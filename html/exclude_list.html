@@ -6,46 +6,48 @@
 </head>
 <body>
 <div class="body-container">
-	<h1>Exclude List</h1>
+	<div class="content">
+		<h1>Exclude List</h1>
 
-	<div class="top">
-		<p>
-			Enter the websites that you do not want WaniKani Highlighter to highlight on.
-		</p>
-		<div id="list-type-container">
-			<div>
-				<label>
-					<input type="radio" name="exclude-type" value="site" checked="checked"/> Exclude the entire site
-				</label>
+		<div class="top">
+			<p>
+				Enter the websites that you do not want WaniKani Highlighter to highlight on.
+			</p>
+			<div id="list-type-container">
+				<div>
+					<label>
+						<input type="radio" name="exclude-type" value="site" checked="checked"/> Exclude the entire site
+					</label>
+				</div>
+				<div>
+					<label>
+						<input type="radio" name="exclude-type" value="page"/> Exclude just this single page
+					</label>
+				</div>
 			</div>
-			<div>
-				<label>
-					<input type="radio" name="exclude-type" value="page"/> Exclude just this single page
-				</label>
+			<div id="list-url-container">
+				<span>http(s)://</span><input id="exclude-url" type="text" /><button id="add-btn">Add</button>
 			</div>
 		</div>
-		<div id="list-url-container">
-			<span>http(s)://</span><input id="exclude-url" type="text" /><button id="add-btn">Add</button>
-		</div>
-	</div>
 
-	
-	<div class="bottom">
-		<div class="rfloat">
-			<input type="search" id="list-filter-txt"/><button id="filter-btn">Filter</button>
-		</div>
-		<div class="clear"></div>
-
-		<div id="list-container">
-			<div id="list-header" class="list-row">
-				<span class="list-chk"><input type="checkbox" id="list-select-all"/></span>
-				<span class="list-site">Exclusion Rule</span>
-				<span class="list-type">Type</span>
-				<span class="list-date">Date Added</span>
+		
+		<div class="bottom">
+			<div class="rfloat">
+				<input type="search" id="list-filter-txt"/><button id="filter-btn">Filter</button>
 			</div>
-			<div id="list-items"><img src="../img/loader.gif" style="display:block; margin:9px auto;"/></div>
+			<div class="clear"></div>
+
+			<div id="list-container">
+				<div id="list-header" class="list-row">
+					<span class="list-chk"><input type="checkbox" id="list-select-all"/></span>
+					<span class="list-site">Exclusion Rule</span>
+					<span class="list-type">Type</span>
+					<span class="list-date">Date Added</span>
+				</div>
+				<div id="list-items"><img src="../img/loader.gif" style="display:block; margin:9px auto;"/></div>
+			</div>
+			<button id="remove-btn">Remove Selected</button>
 		</div>
-		<button id="remove-btn">Remove Selected</button>
 	</div>
 </div>
 <script src="../js/exclude.js"></script>

@@ -8,11 +8,16 @@ input[type=text], input[type=search] {
 
 .body-container {
 	margin: 20px auto 0 auto;
-	width: 800px;
-	padding: 20px 40px;
 	background-color: #eaeaea;
-	border-left: 10px solid #4160DF;
-	border-right: 10px solid #4160DF;
+	width: 880px;
+	border-left: 10px solid #5B5B5B;
+	border-right: 10px solid #5B5B5B;
+}
+
+.content {
+	border-left: 4px solid gold;
+	border-right: 4px solid gold;
+	padding: 20px 40px;
 }
 
 .top {
@@ -34,7 +39,7 @@ input[type=text], input[type=search] {
 }
 
 #list-header {
-	background-color: #4160DF;
+	background-color: #5B5B5B;
 	color: white;
 	font-weight: bold;
 }

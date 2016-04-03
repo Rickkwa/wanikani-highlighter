@@ -5,10 +5,11 @@ body {
 }
 
 header {
-	background-color: #4160DF;
+	background-color: #5B5B5B;
 	color: white;
 	padding: 15px;
 	margin-bottom: 10px;
+	border-bottom: 5px solid gold;
 }
 
 header h1, header h6 {
@@ -84,8 +85,8 @@ header h6 {
 	min-height: 24px;
 	line-height: 24px;
 	font-size: 14px;
-	padding: 0 10px;
-	margin-bottom: 5px;
+	padding: 5px 10px;
+	border-bottom: 5px solid gold;
 	text-align: center;
 }
 
@@ -105,7 +106,7 @@ header h6 {
 }
 
 .big-btn {
-	background-color: #4160DF;
+	background-color: #5B5B5B;
 	color: white;
 	width: 100%;
 	text-align: center;
@@ -121,7 +122,7 @@ header h6 {
 }
 
 .big-btn:hover {
-	background-color: #324FC7;
+	background-color: #494949;
 }
 
 .full-width {
