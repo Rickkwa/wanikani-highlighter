@@ -36,7 +36,7 @@ function replaceDynamicContent(regex, nots) {
 					if (nodes[j].nodeType == 3) // text node
 						$node.parent().replaceText(regex, wrapText);
 					else
-						$node.add($node.children()).not(nots.join(", ")).replaceText(regex, wrapText);
+						$node.add($node.find("*")).not(nots.join(", ")).replaceText(regex, wrapText);
 				}
 			}
 		}
