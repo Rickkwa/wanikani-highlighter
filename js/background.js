@@ -5,23 +5,26 @@
 // But, the background files won't auto update. Need to reload extension.
 // http://stackoverflow.com/questions/5443202/call-a-function-in-background-from-popup
 
+var firstRun = true;
 var wordsPoll = null;
 function pollNewData() {
 	chrome.storage.sync.get({
 		apikey: 'null'
 	}, function(items) {
 		testApi(items.apikey, function(success, message) {
-			if (success) {
-				// Update user info, and do again after some time
+			if (success)
 				updateWords(items.apikey);
-			}
+			else if (firstRun)
+				clearWords(); // only clear when opening browser (if wanikani server goes down, don't want to be clearing their words)
+
 			// Set polling to happen in intervals
 			wordsPoll = setTimeout(pollNewData, 1 * 60 * 60 * 1000); // 1 hour
+
+			firstRun = false;
 		});
 	});
 }
-pollNewData();
-
+pollNewData(); // after this, firstRun will be false
 
 function restartPollNewData() {
 	clearTimeout(wordsPoll);

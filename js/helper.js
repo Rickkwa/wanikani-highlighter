@@ -81,6 +81,10 @@ function updateWords(apikey) {
 	});
 }
 
+function clearWords() {
+	chrome.storage.local.set({ words: [] });
+}
+
 function addWords(words, wkItems, minProf) {
 	var profRank = ["apprentice", "guru", "master", "enlighten", "burned"];
 	var minProfIndex = !profRank.includes(minProf) ? 0 : profRank.indexOf(minProf);
