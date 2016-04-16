@@ -58,25 +58,31 @@ Backend storage of the words
 */
 
 function updateWords(apikey) {
-	var kanji = callApiSync(apikey, "kanji")["requested_information"];
-	var vocab = callApiSync(apikey, "vocabulary")["requested_information"]["general"];
-
 	chrome.storage.sync.get({
-		minProf: ''
+		minProf: '',
+		targetType: 'all'
 	}, function(items) {
 		var words = [];
 
-		addWords(words, kanji, items.minProf);
-		addWords(words, vocab, items.minProf);
+		if (items.targetType == 'all' || items.targetType == 'kanji') {
+			var kanji = callApiSync(apikey, "kanji")["requested_information"];
+			addWords(words, kanji, items.minProf);
+		}
+		if (items.targetType == 'all' || items.targetType == 'vocab') {
+			var vocab = callApiSync(apikey, "vocabulary")["requested_information"]["general"];
+			addWords(words, vocab, items.minProf);
+		}
 
 		// Sort by length of string in descending order
-		words.sort(function(a, b) {
-			return b.length - a.length;
-		});
+		words.sort((a, b) => b.length - a.length);
 
 		chrome.storage.local.set({ words: words });
 		// TODO: make words be stored in background.js instead of chrome storage?
 	});
+}
+
+function clearWords() {
+	chrome.storage.local.set({ words: [] });
 }
 
 function addWords(words, wkItems, minProf) {

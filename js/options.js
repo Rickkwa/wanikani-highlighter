@@ -19,7 +19,7 @@ document.getElementById("hl-preview").onclick = function() {
 	target.value = chromeBg.isHex(hex) ? hex : "#00ffff";
 	target.click();
 }
-document.getElementById("color-picker").oninput = function() { 
+document.getElementById("color-picker").oninput = function() {
 	document.getElementById("hl-color").value = this.value.replace("#", "");
 	updatePreview();
 }
@@ -28,11 +28,12 @@ document.getElementById("color-picker").oninput = function() {
 
 
 // Saves options to chrome.storage
-function saveOptions() {	
+function saveOptions() {
 	var apikey = document.getElementById("apikey").value.trim();
 	var color = document.getElementById("hl-color").value.trim();
 	var proficiency = document.getElementById("proficiency").value;
 	var opacity = document.getElementById("hl-opacity").value.trim();
+	var ttype = document.getElementById("target-type").value;
 
 	// Check valid hexadecimal (including shorthand hex)
 	if (!chromeBg.isHex(color)) {
@@ -48,7 +49,8 @@ function saveOptions() {
 		apikey: apikey,
 		hlColor: color,
 		hlOpacity: opacity,
-		minProf: proficiency
+		minProf: proficiency,
+		targetType: ttype
 	}, function() {
 		chromeBg.testApi(apikey, function(success, message) {
 			if (!success && apikey.length != 0) {
@@ -76,12 +78,14 @@ function fillOptions() {
 		apikey: '',
 		hlColor: '00ffff',
 		hlOpacity: 100,
-		minProf: 'apprentice'
+		minProf: 'apprentice',
+		targetType: 'all'
 	}, function(items) {
 		document.getElementById('apikey').value = items.apikey;
 		document.getElementById('hl-color').value = items.hlColor;
 		document.getElementById('proficiency').value = items.minProf;
 		document.getElementById('hl-opacity').value = items.hlOpacity;
+		document.getElementById('target-type').value = items.targetType;
 
 		setPreview(items.hlColor, items.hlOpacity);
 

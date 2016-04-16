@@ -15,11 +15,13 @@ chrome.storage.sync.get({
 		wordList = localItems.words;
 		if (!isExcludedSite() && containsJapanese($("body").text())) {
 			hlColor = isHex(hlColor) ? hlColor : '#00ffff';
-
-			var regex = new RegExp(wordList.join("|"), "g");
-			var ignored = ["script", "textarea", "style"];
-			$("body, body *").not(ignored.join(", ")).replaceText(regex, wrapText);
-			replaceDynamicContent(regex, ignored);
+			
+			if (wordList.length > 0) {
+				var regex = new RegExp(wordList.join("|"), "g");
+				var ignored = ["script", "textarea", "style"];
+				$("body, body *").not(ignored.join(", ")).replaceText(regex, wrapText);
+				replaceDynamicContent(regex, ignored);
+			}
 		} else { console.log("WKH", "Ignore page"); }
 	});
 });
