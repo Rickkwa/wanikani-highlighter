@@ -1,6 +1,6 @@
 # WaniKani Highlighter
 
-WaniKani Highlighter marks the kanji and vocabulary you learned through [WaniKani](https://www.wanikani.com/) and brings them to your attention. This lets you more easily recognize what you are able to read and allows you to get an idea of your overall level.
+WaniKani Highlighter is a Chrome Extension that marks the kanji and vocabulary you learned through [WaniKani](https://www.wanikani.com/) and brings them to your attention. This lets you more easily recognize what you are able to read and allows you to get an idea of your overall level.
 
 Features include:
 
