@@ -42,11 +42,44 @@ function replaceDynamicContent(regex, nots) {
 				}
 			}
 		}
+
+		fixFlexColumn();
 	});
 	observer.observe(document, {
 		childList: true,
 		subtree: true
 	});
+
+	// Copied from: https://davidwalsh.name/javascript-debounce-function
+	function debounce(func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	};
+
+	// to fix this: https://stackoverflow.com/questions/63651056/how-to-make-a-nodetype-node-element-node-acts-like-nodetype-node-text-n
+	var fixFlexColumn = debounce(() => {
+		document.querySelectorAll('.wkh-hl').forEach(({ parentElement }) => {
+			const { display, flexDirection, alignItems } = window.getComputedStyle(
+				parentElement
+			);
+			if (display === 'flex' && flexDirection === 'column') {
+				parentElement.style.flexDirection = 'row';
+				parentElement.style.justifyContent = alignItems.startsWith('flex-')
+					? alignItems
+					: 'center';
+			}
+		});
+	}, 100, true);
 }
 
 
