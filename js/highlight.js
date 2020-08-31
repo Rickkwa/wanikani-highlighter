@@ -89,7 +89,6 @@ function wrapText(str) {
 		"display": "contents",
 		"font-weight": "900",
 		"color": `rgba(${r}, ${g}, ${b}, ${opacity})`,
-		"font-size": "1.2em"
 	});
 	return hlWrap.wrap("<span>").parent().html();
 }
